@@ -138,12 +138,38 @@
         let warningIndex = 0;
 
         const moveNoButton = () => {
-            const x = Math.random() * (mainCard.clientWidth - noBtn.offsetWidth);
-            const y = Math.random() * (mainCard.clientHeight - noBtn.offsetHeight);
+            // Get dimensions for collision detection
+            const cardRect = mainCard.getBoundingClientRect();
+            const yesRect = yesBtn.getBoundingClientRect();
+
+            // Yes button relative position
+            const yesX = yesRect.left - cardRect.left;
+            const yesY = yesRect.top - cardRect.top;
+            const buffer = 60; // Safe distance
+
+            let newX, newY;
+            let safe = false;
+
+            // Try multiple positions until we find a safe one
+            for (let i = 0; i < 20; i++) {
+                newX = Math.random() * (mainCard.clientWidth - noBtn.offsetWidth);
+                newY = Math.random() * (mainCard.clientHeight - noBtn.offsetHeight);
+
+                // Check overlap with Yes button region
+                if (
+                    newX + noBtn.offsetWidth < yesX - buffer ||
+                    newX > yesX + yesBtn.offsetWidth + buffer ||
+                    newY + noBtn.offsetHeight < yesY - buffer ||
+                    newY > yesY + yesBtn.offsetHeight + buffer
+                ) {
+                    safe = true;
+                    break;
+                }
+            }
 
             noBtn.style.position = 'absolute';
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
 
             // Change warning text
             warningText.innerText = warnings[warningIndex];
