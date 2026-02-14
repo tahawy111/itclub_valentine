@@ -102,15 +102,32 @@
             </div>
         </div>
 
-        <div id="success-section" class="hidden">
-            <div class="inline-flex p-4 bg-green-100 rounded-full text-green-500 mb-6">
-                <i data-lucide="check-circle-2" size="48"></i>
+        <div id="success-section" class="hidden flex flex-col items-center animate-fade-in">
+            <div class="mb-8 relative">
+                <div class="absolute inset-0 bg-rose-200 rounded-full blur-xl opacity-50 animate-pulse"></div>
+                <i data-lucide="party-popper" class="text-rose-500 relative z-10 transform -rotate-12" size="64"></i>
             </div>
-            <h1 class="text-4xl font-black text-gray-800 mb-4">Victory! 🎉</h1>
-            <p class="text-xl text-gray-600 leading-relaxed">
-                I knew you couldn't resist! <br>
-                <span class="text-rose-500 font-bold">Best decision ever. ❤️</span>
-            </p>
+
+            <h1 class="text-5xl text-rose-600 mb-6 text-center leading-tight"
+                style="font-family: 'Dancing Script', cursive;">
+                I knew you would say YES! 💖
+            </h1>
+
+            <div class="bg-rose-50 p-6 rounded-2xl border border-rose-100 mb-6 w-full transform rotate-1">
+                <p class="text-xl text-gray-700 font-medium leading-relaxed">
+                    You've just made me the happiest person in the world! 🥰
+                </p>
+                <div class="mt-4 pt-4 border-t border-rose-200 text-rose-500 font-bold">
+                    Official Valentine Date: <br>
+                    <span class="text-2xl">Feb 14th 🌹</span>
+                </div>
+            </div>
+
+            <div class="flex gap-4 justify-center mt-2">
+                <span class="text-4xl animate-bounce" style="animation-delay: 0.1s">💑</span>
+                <span class="text-4xl animate-bounce" style="animation-delay: 0.2s">💞</span>
+                <span class="text-4xl animate-bounce" style="animation-delay: 0.3s">💝</span>
+            </div>
         </div>
     </div>
 
@@ -190,9 +207,27 @@
             document.getElementById('ask-section').classList.add('hidden');
             document.getElementById('success-section').classList.remove('hidden');
             noBtn.style.display = 'none';
-            mainCard.classList.add('ring-4', 'ring-green-400', 'ring-opacity-50');
+            // Add a romantic glow instead of green ring
+            mainCard.classList.add('ring-4', 'ring-rose-300', 'ring-opacity-50', 'shadow-2xl', 'shadow-rose-300/50');
+
+            // Create extra hearts
+            for (let i = 0; i < 30; i++) {
+                setTimeout(createHeartBurst, i * 100);
+            }
             confettiEffect();
         });
+
+        function createHeartBurst() {
+            const heart = document.createElement('div');
+            heart.innerHTML = ['❤️', '💖', '💝', '💕'][Math.floor(Math.random() * 4)];
+            heart.className = 'fixed pointer-events-none animate-ping';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+            heart.style.zIndex = '50';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1000);
+        }
 
         // Background Hearts
         function createBgHearts() {
@@ -210,8 +245,8 @@
         createBgHearts();
 
         function confettiEffect() {
-            // Simple visual celebration
-            document.body.style.background = "linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%)";
+            // Warm romantic background
+            document.body.style.background = "linear-gradient(135deg, #fff0f3 0%, #ffc9c9 100%)";
         }
     </script>
 </body>
