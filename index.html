@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? 💖</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Dancing+Script:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        .fancy-title {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .floating-heart {
+            position: absolute;
+            animation: float 6s linear infinite;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(110vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+                transform: translateY(100vh) scale(1);
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+        }
+
+        @keyframes shake {
+
+            10%,
+            90% {
+                transform: translate3d(-1px, 0, 0);
+            }
+
+            20%,
+            80% {
+                transform: translate3d(2px, 0, 0);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translate3d(-4px, 0, 0);
+            }
+
+            40%,
+            60% {
+                transform: translate3d(4px, 0, 0);
+            }
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center relative">
+
+    <!-- Floating Background Hearts -->
+    <div id="background-hearts" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+
+    <!-- Main Card -->
+    <div id="card"
+        class="glass-panel p-8 md:p-12 rounded-3xl max-w-md w-full mx-4 text-center relative z-10 transition-all duration-500 transform hover:scale-[1.02]">
+
+        <div id="content-asking" class="transition-opacity duration-500">
+            <div class="mb-8 relative group">
+                <div
+                    class="absolute inset-0 bg-pink-400 blur-3xl opacity-20 rounded-full group-hover:opacity-30 transition-opacity duration-500">
+                </div>
+
+                <!-- Main Animated Image (Milk & Mocha Bear) -->
+                <img id="main-image" src="https://media1.tenor.com/m/J494877_N5wAAAAC/bear-love.gif"
+                    onerror="this.style.display='none'; document.getElementById('backup-icon').style.display='block';"
+                    alt="Cute Bear"
+                    class="w-48 h-48 mx-auto object-contain relative z-10 drop-shadow-xl rounded-full transform transition-transform duration-500 hover:scale-110">
+
+                <!-- Fallback Icon (Hidden by default, shows if image fails) -->
+                <div id="backup-icon" class="hidden w-48 h-48 mx-auto relative z-10">
+                    <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-xl animate-bounce">
+                        <path
+                            d="M50 88.9L16.7 55.6C7.2 46.1 7.2 30.9 16.7 21.4s24.7-9.5 33.3 0l0 0 0 0L50 21.4l0 0 0 0l0 0 0 0c8.6-9.5 23.8-9.1 33.3 0s9.5 24.7 0 34.2L50 88.9z"
+                            fill="#ff4d6d" />
+                        <!-- Cute Face -->
+                        <circle cx="35" cy="40" r="4" fill="white" />
+                        <circle cx="65" cy="40" r="4" fill="white" />
+                        <path d="M40 55 Q50 65 60 55" stroke="white" stroke-width="3" fill="none" />
+                    </svg>
+                </div>
+            </div>
+
+            <h1 class="fancy-title text-5xl md:text-6xl text-rose-600 mb-2 drop-shadow-sm font-bold">Will you be my
+                Valentine?</h1>
+            <p class="text-rose-800/80 font-medium text-lg mb-8">Please say yes! 🥺</p>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 relative min-h-[60px]">
+                <button id="yesBtn"
+                    class="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-xl px-8 py-3 rounded-xl font-bold transition-all transform shadow-lg shadow-rose-500/30 w-full md:w-auto">
+                    Yes! 💖
+                </button>
+                <div class="relative w-full md:w-auto h-12 md:h-auto">
+                    <button id="noBtn"
+                        class="bg-white/80 hover:bg-white text-rose-500 border-2 border-rose-200 text-xl px-8 py-3 rounded-xl font-bold transition-all shadow-sm w-full md:w-auto whitespace-nowrap">
+                        No 😢
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-success" class="hidden opacity-0 transform scale-90 transition-all duration-700">
+            <div class="mb-8 p-4">
+                <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Kisses"
+                    class="w-48 h-48 mx-auto object-contain drop-shadow-xl rounded-full">
+            </div>
+            <h1 class="fancy-title text-5xl md:text-6xl text-rose-600 mb-4 font-bold">Yaaay!!! 🎉</h1>
+            <p class="text-2xl text-rose-800 font-semibold mb-2">I knew you would say yes! ❤️</p>
+            <p class="text-rose-600/80">Best Valentine Ever!</p>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const contentAsking = document.getElementById('content-asking');
+        const contentSuccess = document.getElementById('content-success');
+        const mainImage = document.getElementById('main-image');
+        const card = document.getElementById('card');
+
+        const messages = [
+            "No 😢",
+            "Are you sure?",
+            "Really sure?",
+            "Think again! 🥺",
+            "Last chance!",
+            "Surely not?",
+            "You might regret this!",
+            "Have a heart! 💔",
+            "Are you absolutely certain?",
+            "This could be a mistake!",
+            "Don't be so cold! 🥶",
+            "Change of heart?",
+            "Wouldn't you reconsider?",
+            "Is that your final answer?",
+            "You're breaking my heart ;(",
+            "I'm gonna cry... 😭"
+        ];
+
+        let messageIndex = 0;
+        let yesBtnSize = 1;
+
+        function runAway() {
+            // 1. Change text first to get the correct NEW width
+            // We use a temporary variable or just update it, but we need the DOM to update to get offsetWidth
+            messageIndex = (messageIndex + 1) % messages.length;
+            noBtn.innerText = messages[messageIndex];
+
+            // Force a reflow or just trust the browser; usually synchronous read of offsetWidth after write works
+
+            // Get visible viewport dimensions
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            // Get new button dimensions
+            // Use Math.min to ensure we don't assume it's smaller than it is
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+
+            // Safety padding from edges
+            const padding = 20;
+
+            // Calculate safe boundaries
+            const minX = padding;
+            // Ensure the max X is at least minX
+            const maxX = Math.max(padding, viewportWidth - btnWidth - padding);
+
+            const minY = padding;
+            const maxY = Math.max(padding, viewportHeight - btnHeight - padding);
+
+            // Generate random position within safe bounds
+            const randomX = Math.random() * (maxX - minX) + minX;
+            const randomY = Math.random() * (maxY - minY) + minY;
+
+            // Apply new position
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.zIndex = '50';
+
+            // Grow the Yes button
+            yesBtnSize += 0.2;
+            yesBtn.style.transform = `scale(${yesBtnSize})`;
+
+            // Shake effect
+            if (messageIndex > 0) {
+                card.classList.add('shake');
+                setTimeout(() => card.classList.remove('shake'), 500);
+            }
+        }
+
+        // Handle interaction for both desktop and mobile
+        noBtn.addEventListener('mouseover', runAway);
+        noBtn.addEventListener('click', runAway); // For mobile taps
+
+        yesBtn.addEventListener('click', () => {
+            contentAsking.style.display = 'none';
+            contentSuccess.classList.remove('hidden');
+            // Trigger reflow
+            void contentSuccess.offsetWidth;
+            contentSuccess.classList.remove('opacity-0', 'scale-90');
+            contentSuccess.classList.add('opacity-100', 'scale-100');
+
+            startConfetti();
+        });
+
+        // Background Hearts Animation
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = ['❤️', '💖', '💝', '💕', '💗'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's'; // 4-7s
+
+            document.getElementById('background-hearts').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+
+        setInterval(createFloatingHeart, 300);
+
+        function startConfetti() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.innerText = ['🎉', '🎊', '✨', '❤️'][Math.floor(Math.random() * 4)];
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-10vh';
+                    confetti.style.fontSize = Math.random() * 20 + 20 + 'px';
+                    confetti.style.zIndex = '1000';
+                    confetti.style.transition = 'top 3s ease-in, transform 3s ease-out';
+                    document.body.appendChild(confetti);
+
+                    requestAnimationFrame(() => {
+                        confetti.style.top = '110vh';
+                        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    });
+
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+
+</html>
